@@ -19,10 +19,18 @@ export const LogIn = () => {
                     <Grid item>
                         <Grid container spacing={2} className={classes.buttonWrapper}>
                             <Grid item xs={6}>
-                                <Button fullWidth size='large' variant='outlined'>Log In</Button>
+                                <Button 
+                                className={classes.login}
+                                fullWidth 
+                                size='large' 
+                                variant='outlined'>Log In</Button>
                             </Grid>    
                             <Grid item xs={6}>
-                            <Button fullWidth size='large' variant='contained'>register</Button>
+                                <Button
+                                className={classes.register}
+                                fullWidth 
+                                size='large' 
+                                variant='contained'>register</Button>
                             </Grid>
                         </Grid>
                     </Grid>  
