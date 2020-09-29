@@ -20,8 +20,9 @@ export const MyProfile = () => {
             .signOut()
     }
 
+
     useEffect(() => {
-        const url = `https://api.unsplash.com/search/photos?page=1&query=elephant&client_id=${PINTEREST_API_KEY}`;
+        const url = `https://api.unsplash.com/search/photos?page=${Math.round(Math.random()*100)}&query=elephant&client_id=${PINTEREST_API_KEY}`;
         axios
             .get(url)
             .then((response) => {

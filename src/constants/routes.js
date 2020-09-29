@@ -3,5 +3,5 @@ export const Routes = {
     REGISTER : '/register',
     LOGIN : '/login',
     MY_PROFILE : '/myProfile',
-    SEARCH_IMAGES: 'searchImages'
+    SEARCH_IMAGES: '/searchImages'
 }
