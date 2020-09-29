@@ -4,6 +4,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `yarn install`
+
+If it is the first time that you will run this code in 
+your local system, you will need to install all the 
+dependencies. This command will read the package.json
+file to install all the saved libraries.
+
 ### `yarn start`
 
 Runs the app in the development mode.<br />

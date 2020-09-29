@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Box, Typography, Grid, makeStyles, TextField, Button } from '@material-ui/core';
 import backArrow from '../assets/backArrow.svg';
 import { registerLayoutStyles } from '../Styles/registerLayoutStyles';
+import { Routes } from '../constants/routes';
+import { Link } from 'react-router-dom';
+
+import { withRouter } from 'react-router';
+import app from '../base';
 
 import IconButton from '@material-ui/core/IconButton';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -13,7 +18,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 const useStyles = makeStyles(registerLayoutStyles);
 
-export const RegisterLayout = () => {
+export const RegisterLayout = ({ history }) => {
 
     const classes = useStyles();
 
@@ -22,10 +27,21 @@ export const RegisterLayout = () => {
         pass: '',
         showPass: false
     })
-    const [mailError,setMailError]=useState(false);
-    const [passError,setPassError]=useState(false);
 
-    const [canAccess,setCanAccess] = useState(false);
+    const handleSignUp = useCallback(async user => {
+        
+        try {
+            await app
+                .auth()
+                .createUserWithEmailAndPassword(user.mail, user.pass);
+            history.push(Routes.MY_PROFILE);
+        } catch (error) {
+            alert(error)
+        }
+    }, [history]);
+
+    const [mailError, setMailError] = useState(false);
+    const [passError, setPassError] = useState(false);
 
     const handleMail = event => {
         setUser({
@@ -52,34 +68,34 @@ export const RegisterLayout = () => {
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
-      };
+    };
 
-    const handleMailError = () =>{
-        if(user.mail === ''){
+    const handleMailError = () => {
+        if (user.mail === '') {
             setMailError(true);
-        }else{
+        } else {
             setMailError(false)
         }
     }
-    
-    const handlePassError = () =>{
-        if(user.pass == ''){
+
+    const handlePassError = () => {
+        if (user.pass === '') {
             setPassError(true)
-        }else{
+        } else {
             setPassError(false)
         }
     }
 
-    const handleAccess = () =>{
-        if(user.mail !== '' && user.pass !== ''){
-            setCanAccess(true)
-            console.log('puedes pasar');
-        }else{
-            console.log('porfavor verifica tu correo o tu contraseña')
+    const handleAccess = () => {
+        if (user.mail !== '' && user.pass !== '') {
+            
+            handleSignUp(user);
+        } else {
+            alert('porfavor verifica tu correo o tu contraseña')
         }
     }
 
-    const handleNext = () =>{
+    const handleNext = () => {
         handleMailError();
         handlePassError();
         handleAccess();
@@ -88,10 +104,12 @@ export const RegisterLayout = () => {
 
     return (
         <React.Fragment>
-            <img
-                className={classes.backArrow}
-                src={`${backArrow}`}
-                alt='return to preview section' />
+            <Link to={Routes.LANDING}>
+                <img
+                    className={classes.backArrow}
+                    src={`${backArrow}`}
+                    alt='return to preview section' />
+            </Link>
             <Box
                 p={5}
             >
@@ -112,15 +130,15 @@ export const RegisterLayout = () => {
                             fullWidth
                             label='Mail'
                             onChange={handleMail}
-                            error = {mailError}
-                            helperText = {mailError ? 'Porfavor ingresa un mail' : ''}
+                            error={mailError}
+                            helperText={mailError ? 'Porfavor ingresa un mail' : ''}
                             variant='outlined'></TextField>
                     </Grid>
                     <Grid item xs={12}>
                         <FormControl
-                        fullWidth
-                        error={passError}
-                        variant="outlined">
+                            fullWidth
+                            error={passError}
+                            variant="outlined">
                             <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password"
@@ -157,3 +175,5 @@ export const RegisterLayout = () => {
     )
 
 }
+
+export default withRouter(RegisterLayout);

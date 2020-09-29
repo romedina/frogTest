@@ -25,7 +25,9 @@ export const logInStyles = {
     login:{
         border:'solid 4px black',
         fontWeight:'bold'
+    },
+    link:{
+        textDecoration:'none'
     }
-
 
 }
