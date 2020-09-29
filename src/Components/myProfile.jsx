@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import app from '../base';
-import { Grid, Box, Typography, Button, makeStyles } from '@material-ui/core'
+import { Grid, Box, Typography, Button, makeStyles, CircularProgress } from '@material-ui/core'
 import { myProfileStyles } from '../Styles/myProfileStyles';
 import { logInStyles } from '../Styles/logInStyles';
 import axios from 'axios';
@@ -36,7 +36,7 @@ export const MyProfile = () => {
     return (
         <React.Fragment>
             <Box p={5}>
-                <Grid container spacing={2} justify='center'>
+                <Grid container spacing={3} justify='center'>
                     <Grid item>
                         <div className={classes.profilePic}></div>
                     </Grid>
@@ -56,6 +56,7 @@ export const MyProfile = () => {
                     </Grid>
 
                     {
+                        result.length > 0 ? 
                         result.map((photo) => {
                             return (
                                 <Grid item xs={6}  key={photo.id} >
@@ -63,7 +64,10 @@ export const MyProfile = () => {
                                 </Grid>
                             )
 
-                        })
+                        }):
+                        <Grid item xs={12}>
+                            <CircularProgress/>
+                        </Grid>
                     }
 
 
