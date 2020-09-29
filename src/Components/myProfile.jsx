@@ -1,19 +1,74 @@
 import React from 'react';
 import app from '../base';
-import {Button} from '@material-ui/core'
+import { Grid, Box, Typography, Button, makeStyles } from '@material-ui/core'
+import {myProfileStyles} from '../Styles/myProfileStyles';
+import {logInStyles} from '../Styles/logInStyles';
 
-export const MyProfile = () =>{
+const useStyles = makeStyles({...myProfileStyles,...logInStyles});
 
-    const handleSignOut = () =>{
+export const MyProfile = () => {
+
+    const classes = useStyles();
+
+    const handleSignOut = () => {
         app
-        .auth()
-        .signOut()
+            .auth()
+            .signOut()
     }
 
-    return(
+    return (
         <React.Fragment>
-            <h2>Llegaste a tu perfil</h2>
-            <Button onClick={handleSignOut}>Sign Out</Button>
+            <Box p={5}>
+                <Grid container spacing={2} justify='center'>
+                    <Grid item>
+                        <div className={classes.profilePic}></div>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant='h4'>Jane</Typography>
+                        <Typography variant='subtitle2'>SAN FRANCISCO, CA</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button size='large' fullWidth className={classes.register} variant='outlined'>Follow Jane</Button>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button size='large'  fullWidth className={classes.login} variant='outlined'>Message</Button>
+                    </Grid>
+                    
+                    <Grid item xs={12}>
+                        <Button size='large' fullWidth className={classes.login} variant='outlined' onClick={handleSignOut}>Sign Out</Button>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <p>hola</p>
+                    </Grid>
+                    
+                    
+                </Grid>
+            </Box>
         </React.Fragment>
     )
 }

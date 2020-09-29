@@ -17,14 +17,16 @@ export const logInStyles = {
         padding: '10px 10px',
     },
     register:{
-        border:'solid 4px black',
+        border:'solid 2px black',
         backgroundColor: 'black',
         color:'white',
         fontWeight: 'bold',
+        cursor:'pointer'
     },
     login:{
-        border:'solid 4px black',
-        fontWeight:'bold'
+        border:'solid 2px black',
+        fontWeight:'bold',
+        cursor:'pointer'
     },
     link:{
         textDecoration:'none'
