@@ -9,4 +9,9 @@ export const myProfileStyles = {
         height:150,
         borderRadius: 150
     },
+    images:{
+        width:'100%',
+        height:300,
+        objectFit:'cover',
+    }
 }

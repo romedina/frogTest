@@ -1,20 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import app from '../base';
 import { Grid, Box, Typography, Button, makeStyles } from '@material-ui/core'
-import {myProfileStyles} from '../Styles/myProfileStyles';
-import {logInStyles} from '../Styles/logInStyles';
+import { myProfileStyles } from '../Styles/myProfileStyles';
+import { logInStyles } from '../Styles/logInStyles';
+import axios from 'axios';
 
-const useStyles = makeStyles({...myProfileStyles,...logInStyles});
+const useStyles = makeStyles({ ...myProfileStyles, ...logInStyles });
+const PINTEREST_API_KEY = "bsEAgAjoOdSaupFCbSl55iwPeDetua_kb7pls8vA4ns";
 
 export const MyProfile = () => {
 
     const classes = useStyles();
+
+    const [result, setResult] = useState([]);
 
     const handleSignOut = () => {
         app
             .auth()
             .signOut()
     }
+
+    useEffect(() => {
+        const url = `https://api.unsplash.com/search/photos?page=1&query=elephant&client_id=${PINTEREST_API_KEY}`;
+        axios
+            .get(url)
+            .then((response) => {
+                setResult(response.data.results);
+            })
+            .catch((error) => {
+                alert(error);
+            });
+    }, [])
 
     return (
         <React.Fragment>
@@ -31,42 +47,25 @@ export const MyProfile = () => {
                         <Button size='large' fullWidth className={classes.register} variant='outlined'>Follow Jane</Button>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button size='large'  fullWidth className={classes.login} variant='outlined'>Message</Button>
+                        <Button size='large' fullWidth className={classes.login} variant='outlined'>Message</Button>
                     </Grid>
-                    
+
                     <Grid item xs={12}>
                         <Button size='large' fullWidth className={classes.login} variant='outlined' onClick={handleSignOut}>Sign Out</Button>
                     </Grid>
 
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <p>hola</p>
-                    </Grid>
-                    
-                    
+                    {
+                        result.map((photo) => {
+                            return (
+                                <Grid item xs={6}  key={photo.id} >
+                                    <img className={classes.images} src={photo.urls.small} alt={`${photo.id}`}/>
+                                </Grid>
+                            )
+
+                        })
+                    }
+
+
                 </Grid>
             </Box>
         </React.Fragment>
